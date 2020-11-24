@@ -79,7 +79,6 @@ ageNet = cv2.dnn.readNet(ageModel, ageProto)
 genderNet = cv2.dnn.readNet(genderModel, genderProto)
 
 # Get a reference to webcam #0 (the default one)
-# video_capture = cv2.VideoCapture(0)
 video_capture = cv2.VideoCapture(args.image if args.image else 0)
 padding = 20
 
@@ -94,15 +93,15 @@ while cv2.waitKey(1) < 0:
         print("No face detected")
 
     # Resize frame of video to 1/4 size for faster face recognition processing
-    small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+    smallFrame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
     # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
-    rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
+    rgb_smallFrame = cv2.cvtColor(smallFrame, cv2.COLOR_BGR2RGB)
 
     if process_this_frame:
         # Find all the faces and face encodings in the current frame of video
-        face_locations = face_recognition.face_locations(rgb_small_frame)
+        face_locations = face_recognition.face_locations(rgb_smallFrame)
         face_encodings = face_recognition.face_encodings(
-            rgb_small_frame, face_locations)
+            rgb_smallFrame, face_locations)
 
         face_names = []
         for face_encode, face_loc in zip(face_encodings, face_locations):
